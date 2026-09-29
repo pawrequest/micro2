@@ -126,3 +126,10 @@ class Stepper:
 
     def is_enabled(self):
         return self.enabled
+
+    def for_3_seconds(self):
+        self.free_run(1)
+        time.sleep(3)
+        self.stop()
+
+

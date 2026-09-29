@@ -7,7 +7,8 @@ from stepper import Stepper
 
 
 def get_step() -> Stepper:
-    print(f'creating stepper with: step_pin={STEP_PIN}, dir_pin={DIR_PIN}, steps/rev={MICROSTEPS_REV}, speed sps={SPEED_SPS}')
+    print(
+        f'creating stepper with: step_pin={STEP_PIN}, dir_pin={DIR_PIN}, steps/rev={MICROSTEPS_REV}, speed sps={SPEED_SPS}')
     st = Stepper(step_pin=STEP_PIN, dir_pin=DIR_PIN, steps_per_rev=MICROSTEPS_REV, speed_sps=SPEED_SPS)
     return st
 
@@ -41,6 +42,12 @@ def connect_wifi(static: bool = False):
     return wlan
 
 
+def for_3_seconds(st):
+    st.free_run(1)
+    time.sleep(3)
+    st.stop()
+
+
 def do_it():
     print('doing it')
     st = get_step()
@@ -50,3 +57,5 @@ def do_it():
 
 
 connect_wifi(static=True)
+st = get_step()
+print_pos(st)
