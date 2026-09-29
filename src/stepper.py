@@ -158,15 +158,13 @@ class Stepper:
         time.sleep(3)
         self.stop()
 
-    def demo(self):
-        for i in range(1):
+    def demo(self, n=1, degrees=90):
+        for i in range(n):
+            self.target_deg(degrees)
+            self.wait()
+            self.target_deg(-degrees)
+            self.wait()
             self.target_deg(0)
-            self.wait()
-            self.target_deg(360)
-            self.wait()
-            self.target_deg(0)
-            self.wait()
-            self.target_deg(-360)
 
     def wait(self):
         while self.pos != self.target_pos:
