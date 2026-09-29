@@ -3,4 +3,3 @@
 #esp.osdebug(None)
 import webrepl
 webrepl.start()
-print("WebREPL started")

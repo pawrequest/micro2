@@ -1,29 +1,14 @@
-"""Connect an ESP32 running MicroPython to Wi-Fi and start WebREPL."""
-import time
-
 import network
-
+import time
 from secrets import DNS, GATEWAY, IP, SUBNET, WIFI_PASSWORD, WIFI_SSID
 
-WIFI_TIMEOUT_SECONDS = 20
-from motor_config import DIR_PIN, STEP_PIN
+from config import DIR_PIN, MICROSTEPS_REV, SPEED_SPS, STEP_PIN, WIFI_TIMEOUT_SECONDS
 from stepper import Stepper
 
 
 def get_step() -> Stepper:
-    print(f'creating stepper with: step_pin={STEP_PIN}, dir_pin={DIR_PIN}')
-    micro = 32
-    spr = 200 * micro
-    st = Stepper(
-        step_pin=STEP_PIN,
-        dir_pin=DIR_PIN,
-        # en_pin=en_pin,
-        steps_per_rev=spr,
-        speed_sps=100
-        # invert_dir=False,
-        # timer_id=-1,
-    )
-    st.speed_rps(0.5)
+    print(f'creating stepper with: step_pin={STEP_PIN}, dir_pin={DIR_PIN}, steps/rev={MICROSTEPS_REV}, speed sps={SPEED_SPS}')
+    st = Stepper(step_pin=STEP_PIN, dir_pin=DIR_PIN, steps_per_rev=MICROSTEPS_REV, speed_sps=SPEED_SPS)
     return st
 
 
@@ -60,6 +45,7 @@ def do_it():
     print('doing it')
     st = get_step()
     print_pos(st)
+
     rotate(st, 30)
 
 
