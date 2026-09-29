@@ -1,0 +1,2 @@
+STEP_PIN = 4
+DIR_PIN = 18

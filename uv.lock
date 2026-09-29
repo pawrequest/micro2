@@ -1,0 +1,23 @@
+version = 1
+revision = 3
+requires-python = ">=3.13"
+
+[[package]]
+name = "micro2"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "micropython-stepper" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "micropython-stepper", specifier = ">=1.0.3" }]
+
+[[package]]
+name = "micropython-stepper"
+version = "1.0.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/61/c1/40888b0cceedcefa79ac65d48df2d40d7956884a6bb579a984ec3a5a1972/micropython-stepper-1.0.3.tar.gz", hash = "sha256:32725cbb455a030ba03a854805793a7ca3c5727d0723c3d8c015b99428ce845b", size = 4644, upload-time = "2023-02-01T08:08:31.97Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b0/30/38d1f34e7f23d488b508a49092556402e245d22679f3899e38133f92b40c/micropython_stepper-1.0.3-py3-none-any.whl", hash = "sha256:585829a23ea66a5592a87d75a1a1048c96e068cd7669625896845ccbe452f2f4", size = 5500, upload-time = "2023-02-01T08:08:29.924Z" },
+]
