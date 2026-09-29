@@ -1,20 +1,40 @@
 """
-micropython-stepper from https://github.com/redoxcode/micropython-stepper MIT Licensed
+micropython-stepper adapted from https://github.com/redoxcode/micropython-stepper MIT Licensed
 """
 
-
-import machine
 import math
 import time
 
+import machine
+
+from config import (
+    DIR_PIN,
+    ENABLE_PIN,
+    GEARBOX_MODIFIER,
+    INVERT_DIR,
+    MICROSTEPS_REV,
+    SPEED_SPS,
+    STEP_PIN,
+)
+
 
 class Stepper:
-    def __init__(self, step_pin, dir_pin, en_pin=None, steps_per_rev=200, speed_sps=10, invert_dir=False, timer_id=-1):
+    def __init__(
+        self,
+        step_pin=STEP_PIN,
+        dir_pin=DIR_PIN,
+        en_pin=ENABLE_PIN,
+        steps_per_rev=MICROSTEPS_REV,
+        speed_sps=SPEED_SPS,
+        invert_dir=INVERT_DIR,
+        timer_id=-1,
+        gearbox_modifier: float = GEARBOX_MODIFIER,
+    ):
         if not isinstance(step_pin, machine.Pin):
             step_pin = machine.Pin(step_pin, machine.Pin.OUT)
         if not isinstance(dir_pin, machine.Pin):
             dir_pin = machine.Pin(dir_pin, machine.Pin.OUT)
-        if (en_pin != None) and (not isinstance(en_pin, machine.Pin)):
+        if en_pin is not None and not isinstance(en_pin, machine.Pin):
             en_pin = machine.Pin(en_pin, machine.Pin.OUT)
 
         self.step_value_func = step_pin.value
@@ -26,11 +46,12 @@ class Stepper:
         self.timer_is_running = False
         self.free_run_mode = 0
         self.enabled = True
+        self.stop_requested = False
 
         self.target_pos = 0
         self.pos = 0
         self.steps_per_sec = speed_sps
-        self.steps_per_rev = steps_per_rev
+        self.steps_per_rev = steps_per_rev * gearbox_modifier
 
         self.track_target()
 
@@ -43,9 +64,11 @@ class Stepper:
         self.speed(rps * self.steps_per_rev)
 
     def target(self, t):
+        print(f'targeting {t} steps')
         self.target_pos = t
 
     def target_deg(self, deg):
+        print(f'moving {deg=}')
         self.target(self.steps_per_rev * deg / 360.0)
 
     def target_rad(self, rad):
@@ -70,6 +93,9 @@ class Stepper:
         self.overwrite_pos(rad * self.steps_per_rev / (2.0 * math.pi))
 
     def step(self, d):
+        if self.stop_requested:
+            print("stop requested, not stepping")
+            return
         if d > 0:
             if self.enabled:
                 self.dir_value_func(1 ^ self.invert_dir)
@@ -132,4 +158,16 @@ class Stepper:
         time.sleep(3)
         self.stop()
 
+    def demo(self):
+        for i in range(1):
+            self.target_deg(0)
+            self.wait()
+            self.target_deg(360)
+            self.wait()
+            self.target_deg(0)
+            self.wait()
+            self.target_deg(-360)
 
+    def wait(self):
+        while self.pos != self.target_pos:
+            time.sleep(0.1)

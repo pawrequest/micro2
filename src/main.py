@@ -1,6 +1,7 @@
-import network
 import time
 from secrets import DNS, GATEWAY, IP, SUBNET, WIFI_PASSWORD, WIFI_SSID
+
+import network
 
 from config import DIR_PIN, MICROSTEPS_REV, SPEED_SPS, STEP_PIN, WIFI_TIMEOUT_SECONDS
 from stepper import Stepper
@@ -8,8 +9,14 @@ from stepper import Stepper
 
 def get_step() -> Stepper:
     print(
-        f'creating stepper with: step_pin={STEP_PIN}, dir_pin={DIR_PIN}, steps/rev={MICROSTEPS_REV}, speed sps={SPEED_SPS}')
-    st = Stepper(step_pin=STEP_PIN, dir_pin=DIR_PIN, steps_per_rev=MICROSTEPS_REV, speed_sps=SPEED_SPS)
+        f"creating stepper with: step_pin={STEP_PIN}, dir_pin={DIR_PIN}, steps/rev={MICROSTEPS_REV}, speed sps={SPEED_SPS}"
+    )
+    st = Stepper(
+        step_pin=STEP_PIN,
+        dir_pin=DIR_PIN,
+        steps_per_rev=MICROSTEPS_REV,
+        speed_sps=SPEED_SPS,
+    )
     return st
 
 
@@ -18,7 +25,7 @@ def print_pos(st):
 
 
 def rotate(st: Stepper, degrees: int = 45):
-    print(f'rotating {degrees} degrees')
+    print(f"rotating {degrees} degrees")
     st.target_deg(degrees)
 
 
@@ -49,7 +56,7 @@ def for_3_seconds(st):
 
 
 def do_it():
-    print('doing it')
+    print("doing it")
     st = get_step()
     print_pos(st)
 
