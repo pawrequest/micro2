@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MicroPythonTools">
+    <option name="activeWebReplPresetId" value="03d401f7-8887-4927-9b17-cf55de60b63c" />
+    <option name="pluginEnabled" value="true" />
+    <option name="portName" value="COM5" />
+    <option name="shouldAutoDetect" value="false" />
+    <option name="usingUart" value="false" />
+    <option name="webReplPresets">
+      <map>
+        <entry key="03d401f7-8887-4927-9b17-cf55de60b63c" value="{&quot;id&quot;:&quot;03d401f7-8887-4927-9b17-cf55de60b63c&quot;,&quot;name&quot;:&quot;Default&quot;,&quot;ip&quot;:&quot;192.168.1.90&quot;}" />
+      </map>
+    </option>
+    <option name="webReplPresetsMigrated" value="true" />
+  </component>
+</project>
