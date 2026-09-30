@@ -3,6 +3,7 @@ from secrets import DNS, GATEWAY, IP, SUBNET, WIFI_PASSWORD, WIFI_SSID
 
 import network
 
+from button import Button
 from config import DIR_PIN, MICROSTEPS_REV, SPEED_SPS, STEP_PIN, WIFI_TIMEOUT_SECONDS
 from stepper import Stepper
 
@@ -66,3 +67,11 @@ def do_it():
 connect_wifi(static=True)
 st = get_step()
 print_pos(st)
+
+
+def on_button_press():
+    print("button pressed")
+    rotate(st, 30)
+
+
+button = Button(on_button_press)
