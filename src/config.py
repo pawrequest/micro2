@@ -1,5 +1,5 @@
 # motor
-# STEP_PIN = 12
+STEP_PIN = 12
 DIR_PIN = 14
 ENABLE_PIN = None
 
